@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Insert title here</title>
+  </head>
+  <body>
+    <h2>Form Data..</h2>
+    <form action="fs" method="post">
+      <div>
+        <label for="userId">ID : </label>
+        <input type="text" name="userId" id="userId" />
+      </div>
+      <div>
+        <label for="userPwd">PASSWORD : </label>
+        <input type="password" name="userPwd" id="userPwd" />
+      </div>
+      <div>
+        <h3>좋아하는 메뉴</h3>
+        <label
+          ><input type="checkbox" name="menu" value="짜장면" />짜장면</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            name="menu"
+            value="김치볶음밥"
+          />김치볶음밥</label
+        >
+        <label
+          ><input type="checkbox" name="menu" value="파스타" />파스타</label
+        >
+        <label
+          ><input type="checkbox" name="menu" value="닭볶음탕" />닭볶음탕</label
+        >
+      </div>
+      <div>
+        <h3>성별</h3>
+        <label><input type="radio" name="gender" value="M">남</label>
+        <label><input type="radio" name="gender" value="F">여</label>
+      </div>
+      <input type="submit" value="DataSend" />
+
+      <!-- 
+        패키지: servlet.form
+        Servlet: HttpFormServlet
+        service 메소드를 통해 아이디, 패스워드 출력
+     -->
+    </form>
+  </body>
+</html>
