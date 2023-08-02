@@ -19,4 +19,14 @@
     <servlet-name>HttpFormServlet</servlet-name>
     <url-pattern>/fs</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>HttpFormServlet_SelfReview</display-name>
+    <servlet-name>HttpFormServlet_SelfReview</servlet-name>
+    <servlet-class>servlet.form.HttpFormServlet_SelfReview</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>HttpFormServlet_SelfReview</servlet-name>
+    <url-pattern>/hfs</url-pattern>
+  </servlet-mapping>
 </web-app>
