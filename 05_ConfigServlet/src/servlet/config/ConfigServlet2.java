@@ -72,6 +72,7 @@ public class ConfigServlet2 extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		
 		userName = request.getParameter("userName");
+		
 	
 		PrintWriter out = response.getWriter();
 		
