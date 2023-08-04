@@ -74,20 +74,26 @@
       // 나이를 숫자로 입력하지 않았을 때
       // alert로 숫자를 입력하라고 메시지 띄우고
       // return false
-      const age = document.querySelector("#age");
-
-      function checkAge() {
-        const regExp = /^[0-9]{1,3}$/;
-        return regExp.test(age.value);
-      }
+      console.log(document.frm);
 
       function checkData() {
-        if (!checkAge()) {
-          alert("숫자를 입력하세요!");
-          return false;
-        } else {
-          return true;
-        }
+
+        // const regExp = /^[0-9]+$/;
+		const age = document.frm.age.value;
+		
+		if(isNaN(age)){
+			alert('숫자로 입력해주세요!');
+			return false;
+		} else {
+			return true;
+		}
+		
+        //if (regExp.test(age)) {
+         // alert('숫자로 입력하세요!');
+          //return false;
+        //} else {
+        //  return true;
+       // }
       }
     </script>
   </body>
