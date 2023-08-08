@@ -35,8 +35,8 @@ public class RegisterServlet extends HttpServlet {
 		
 		try { // 값이 있는 경우(id가 primary key이므로)
 			// 3. DAO와 연결
-			MemberDAO dao = new MemberDAO();
-			dao.registerMember(dto);
+//			MemberDAO dao = new MemberDAO();
+			MemberDAO.getInstance().registerMember(dto);
 			
 			// 4. 데이터 바인딩 - session
 			HttpSession session = request.getSession();

@@ -56,6 +56,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>FindMemberServlet</servlet-name>
-    <url-pattern>/find</url-pattern>
+    <url-pattern>/FindMemberServlet</url-pattern>
   </servlet-mapping>
 </web-app>

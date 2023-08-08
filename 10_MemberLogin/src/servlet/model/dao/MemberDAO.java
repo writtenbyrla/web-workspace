@@ -11,13 +11,30 @@ import config.ServerInfo;
 import servlet.model.vo.MemberDTO;
 
 public class MemberDAO implements MemberDAOTemplate{
-
-	public MemberDAO() {
+	
+	// 싱글톤 패턴 - 클래스의 객체가 항상 하나만 존재하도록 
+	/*
+	 * DAO를 반복적으로 생성하고 해제하는 것은 비효율적
+	 * 객체지향적 설계! 싱글톤 패턴은 객체지향적 설계 원칙을 준수 -> 중앙에서 처리!
+	 * 주의할 점은 싱글톤은 전역 상태를 가질 수 있으므로 오남용하면 애플리케이션의 복잡성이 증가
+	 * */
+	private static MemberDAO dao = new MemberDAO();
+	private MemberDAO() {
 		try {
 			Class.forName(ServerInfo.DRIVER_NAME);
 		} catch (ClassNotFoundException e) {}
-
 	}
+	
+	public static MemberDAO getInstance() {
+		return dao;
+	}
+
+//	public MemberDAO() {
+//		try {
+//			Class.forName(ServerInfo.DRIVER_NAME);
+//		} catch (ClassNotFoundException e) {}
+//
+//	}
 	
 	@Override
 	public Connection getConnection() throws SQLException {
@@ -79,29 +96,27 @@ public class MemberDAO implements MemberDAOTemplate{
 		
 		return dto;
 	}
-
+	
+	
 	@Override
 	public MemberDTO findByIdMember(String id) throws SQLException {
 		Connection conn = getConnection();
 		
 		String query = "SELECT * FROM MEMBER WHERE ID = ?";
-		
 		PreparedStatement ps = conn.prepareStatement(query);
 		
 		ps.setString(1, id);
-		
 		ResultSet rs = ps.executeQuery();
 		
 		MemberDTO dto = null;
 		if(rs.next()) {
 			dto = new MemberDTO();
-			dto.setId(id);
+			dto.setId(rs.getString("id"));
 			dto.setPassword(rs.getString("password"));
 			dto.setName(rs.getString("name"));
 			dto.setAddress(rs.getString("address"));
 		}
-		
-		closeAll(rs, ps, conn);
+		closeAll(rs,ps,conn);
 		return dto;
 	}
 
@@ -112,19 +127,26 @@ public class MemberDAO implements MemberDAOTemplate{
 		String query = "SELECT * FROM MEMBER";
 		PreparedStatement ps = conn.prepareStatement(query);
 		
-		
 		ArrayList<MemberDTO> memberList = new ArrayList<>();
 		
 		ResultSet rs = ps.executeQuery();
 		
-//		while(rs.next()) {
-//			memberList.add(new MemberDTO(rs.getString("id"), rs.getInt("password"), rs.getString("name"), rs.getString("address")));
-//		}
+		while(rs.next()) {
+			MemberDTO dto = new MemberDTO();
+			dto.setId(rs.getString("id"));
+			dto.setPassword(rs.getString("password"));
+			dto.setName(rs.getString("name"));
+			dto.setAddress(rs.getString("address"));
+			memberList.add(dto);
+		}
 		
 		closeAll(rs, ps, conn);
 		
 		return memberList;
 	}
+	
+
+	
 	
 	public static void main(String[] args) {
 		MemberDAO dao = new MemberDAO();
