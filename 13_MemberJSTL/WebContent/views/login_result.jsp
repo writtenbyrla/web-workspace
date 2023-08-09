@@ -11,7 +11,7 @@
 <body>
 
 <c:choose>
-	<c:when test="${dto ne null}">
+	<c:when test="${!empty dto}">
 		<h1>로그인 정보</h1>
 		<ul>
 			<li>아이디 : ${dto.id}</li>

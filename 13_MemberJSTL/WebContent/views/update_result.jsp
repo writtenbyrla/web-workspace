@@ -11,8 +11,8 @@
 <body>
 
 <c:choose>
-	<c:when test="${dto ne null}">
-		<h3>${sessionScope.dto.id}님 회원 정보 수정 완료!</h3>
+	<c:when test="${!empty dto}">
+		<h3>${dto.name}님 회원 정보 수정 완료!</h3>
 		<a href="/index.jsp">첫 페이지로 이동</a>
 	</c:when>
 	<c:otherwise>

@@ -153,13 +153,9 @@ public class MemberDAO implements MemberDAOTemplate{
 		PreparedStatement ps = conn.prepareStatement(query);
 		
 		ps.setString(1, dto.getPassword());
-		System.out.println(dto.getPassword());
 		ps.setString(2, dto.getName());
-		System.out.println(dto.getName());
 		ps.setString(3, dto.getAddress());
-		System.out.println(dto.getAddress());
 		ps.setString(4, dto.getId());
-		System.out.println(dto.getId());
 		
 		ps.executeUpdate();
 		
