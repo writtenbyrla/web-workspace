@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h2>Show Count</h2>
+	<input type="button" value="count 증가" onclick="startRequest()">
+	<div id="resultView"></div>
+	
+	<script>
+		let xhr; // XML Http Request
+		function startRequest(){ // 요청에 해당하는 로직을 담는 함수
+			xhr = new XMLHttpRequest(); // 주로 비동기적으로 처리할 때 씀
+			//alert(xhr.readyState);		// 시작전 0 호출
+			
+			xhr.onreadystatechange = callback;
+			//alert(xhr.readyState);	// 0
+			
+			xhr.open("get", "CountServlet?id=ajax&&pass=1212");
+			//alert(xhr.readyState); // 1
+			
+			xhr.send(null); // GET 방식이어서 null
+			// 이때 서버로 날아간다. 즉 실질적인 요청이 이때 들어감
+			//alert(xhr.readyState); // 1
+		}	
+		
+		function callback(){ // 응답에 해당하는 로직을 담는 함수
+			// alert("callback :: " + xhr.readyState); // 0일때 응답 안됨(callback 호출 안된 상태)
+			// send 이후 1부터 4까지 나옴
+			//여기서 readyState 값의 의미
+			//0 (UNSENT): XMLHttpRequest 객체가 생성되었지만, open() 메서드가 호출되지 않은 상태입니다.
+			//1 (OPENED): open() 메서드가 호출되고, 요청 설정이 완료된 상태입니다.
+			//2 (HEADERS_RECEIVED): 요청이 전송되었고, 응답 헤더가 받아진 상태입니다.
+			//3 (LOADING): 응답 바디가 수신 중인 상태입니다.
+			//4 (DONE): 요청이 완료되었고, 응답을 완전히 받은 상태입니다.
+			
+			if(xhr.readyState === 4) {
+				// console.log(xhr.status); // 200
+				if(xhr.status===200){
+					const text = xhr.responseText; // 응답텍스트
+					document.querySelector("#resultView").innerHTML = "<h4>" + text + "</h4>";
+				}
+			}
+		}
+	</script>
+</body>
+</html>

@@ -18,8 +18,6 @@ public class UpdateController implements Controller {
 		String name = request.getParameter("name");
 		String address = request.getParameter("address");
 		
-		String path = "views/update.jsp";
-		
 		MemberVO vo = new MemberVO(id, password, name, address);
 		
 		MemberDAO.getInstance().updateMember(vo);
@@ -27,9 +25,7 @@ public class UpdateController implements Controller {
 		HttpSession session = request.getSession();
 		session.setAttribute("vo", vo);
 		
-		path = "views/update_result.jsp";
-		
-		return new ModelAndView(path);
+		return new ModelAndView("views/update_result.jsp");
 	}
 
 }

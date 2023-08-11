@@ -19,6 +19,7 @@ public class AllshowController implements Controller{
 		request.setAttribute("memberList", memberList);
 		String path = "views/allShow.jsp";
 		
+		// request니까 forward 방식으로
 		return new ModelAndView(path);
 	}
 

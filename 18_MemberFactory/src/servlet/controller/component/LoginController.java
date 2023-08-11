@@ -15,19 +15,20 @@ public class LoginController implements Controller {
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String id = request.getParameter("id");
 		String password = request.getParameter("password");
-		
-		String path = "views/login.html";
-		
+				
 		MemberVO vo = MemberDAO.getInstance().login(id, password);
 		
 		HttpSession session = request.getSession();
 		
 		if(vo!=null) {
 			session.setAttribute("vo", vo);
-			path = "views/login_result.jsp";
+
 		}
 		
-		return new ModelAndView(path);
+		// request일 때 데이터바인딩 필수, forward 방식으로 보내야 함
+		
+		// request가 아닌 session이므로 sendRedirect 방식으로 보내도 됨
+		return new ModelAndView("views/login_result.jsp", true);
 	}
 	
 	
