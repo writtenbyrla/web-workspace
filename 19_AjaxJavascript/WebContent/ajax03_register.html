@@ -9,11 +9,10 @@
 	<!-- 상대경로: ../RegisterServlet -->
 	<!-- 절대경로: /RegisterServlet -->
 	<!-- front.do는 DispatcherServlet -->
-	<form action="/register.do" method="get">
-		아이디 :  <input type="text" name="id" class="id"/>
-		<input type="button" value="중복체크" onclick="startRequest()">
-		<span id="idCheckView"></span>
-			<!-- 
+	<form action="/register.do" method="post">
+		아이디 : <input type="text" name="id" id="id" /> <input type="button"
+			value="중복체크" onclick="startRequest()"> <span id="idCheckView"></span>
+		<!-- 
 				DB에 아이디가 있으면 ID 사용 불가! 
 						   없으면 ID 사용 가능!
 				command: idCheck.do
@@ -21,38 +20,54 @@
 				dao: findByIdMember 사용가능
 				idExist 로 만들어도 됨
 			-->
-			
+
 		<script>
 		
 			let xhr;
 
 			function startRequest() {
 				xhr = new XMLHttpRequest();
-				const id = document.querySelector(".id");
+				const id = document.querySelector("#id");
 
 				xhr.onreadystatechange = callback;
 
-				xhr.open("get", 'idCheck.do?id=' + encodeURI(encodeURIComponent(id.value)));
-
-				xhr.send(null);
+				// get 방식
+				//xhr.open("get", 'idCheck.do?id=' + encodeURI(encodeURIComponent(id.value)));
+				
+				// post 방식
+				xhr.open("post", "idCheck.do");
+				
+				// get 방식
+				// xhr.send(null);
+				
+				// post 방식
+				// xhr.send("id=" + encodeURI(encodeURIComponent(id.value)))
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded;charset=utf-8");
+				xhr.send("id=" + document.querySelector('#id').value);
+				
 			}
 
 			function callback() {
 				if (xhr.readyState === 4 && xhr.status === 200) {
-					const text = xhr.responseText;
-					document.querySelector("#idCheckView").innerHTML = "<h3>"
-							+ decodeURI(decodeURIComponent(text)) + "</h3>";
+					const flag = xhr.responseText;
+					const idCheckView = document.querySelector("#idCheckView");
+					
+					if(flag === "true") {
+						idCheckView.innerHTML = "<span style='color:red;'>ID 사용 불가!!</span>";	
+					} else {
+						idCheckView.innerHTML = "<span style='color:blue;'>ID 사용 가능!!</span>";
+					}
+							
 				}
 
 			}
 		</script>
 
 
-		<br>
-		패스워드 : <input type="password" name="password" /><br>
-		이름 : <input type="text" name="name" /><br>
-		주소 : <input type="text" name="address" /><br>
-		<input type="submit" value="가입">
+		<br> 패스워드 : <input type="password" name="password" /><br>
+		이름 : <input type="text" name="name" /><br> 주소 : <input
+			type="text" name="address" /><br> <input type="submit"
+			value="가입">
 	</form>
 </body>
 </html>

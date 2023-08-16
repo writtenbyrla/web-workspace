@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h1>Local Storage TEST</h1>
+	
+	<button onclick="add()">추가</button>
+	<button onclick="view()">보기</button>
+	<button onclick="remove()">삭제</button>
+	
+	<div id="resultView"></div>
+	
+	<script>
+		function add(){
+			localStorage.setItem("test", "Item1"); // key, value
+		}
+		function view(){
+			document.querySelector("#resultView").innerHTML = localStorage.getItem("test"); // Item1(key로 value값을 가지고 옴)
+		}
+		function remove(){
+			localStorage.removeItem("test");
+			location.reload(); // 새로고침
+		}
+	</script>
+</body>
+</html>

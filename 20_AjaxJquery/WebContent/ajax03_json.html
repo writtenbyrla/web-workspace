@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+</head>
+<body>
+	<input type="button" value="jsonBtn" id="jsonBtn">
+	<div id="resultView"></div>
+	
+	<script>
+		$('#jsonBtn').click(function(){
+			$.ajax({
+				type: 'post',
+				url: 'JsonAjax',
+				dataType: 'json',
+				
+				success:function(data){
+					console.log(data.result); // {name: 'Jason', addr: 'Texas', age: 20} (문자열)json형태로 데이터 받아온 값
+					const result = eval(`(${data.result})`);
+					console.log(result); // {name: 'Jason', age: 20, addr: 'Texas'} (객체 형식)
+					 $('#resultView').html(`${result.addr}에 사는 ${result.age}살 ${result.name}입니다.`);
+				}
+			});
+		});
+	</script>
+</body>
+</html>

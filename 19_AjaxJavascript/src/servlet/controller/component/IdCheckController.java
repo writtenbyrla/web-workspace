@@ -21,13 +21,28 @@ public class IdCheckController implements Controller{
 		
 		PrintWriter out = response.getWriter();
 		
+		// 내가 한 방식
+//		if(vo!=null) {
+//			out.println("ID 사용 불가");
+//		} else {
+//			out.println("ID 사용 가능");
+//		}
+//		
+//		return new ModelAndView();
+		
+		// 선생님이 한 방식
+		boolean flag = false;
+		
 		if(vo!=null) {
-			out.println("ID 사용 불가");
-		} else {
-			out.println("ID 사용 가능");
+			flag=true;
 		}
 		
-		return new ModelAndView();
+		// 비동기식방식
+		//PrintWriter out = response.getWriter();
+		out.print(flag);
+		
+		return null;
+
 	}
 
 }
