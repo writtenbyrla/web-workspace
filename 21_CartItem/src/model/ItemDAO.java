@@ -53,7 +53,7 @@ public class ItemDAO implements ItemDAOTemplate {
 		ResultSet rs = ps.executeQuery();
 		
 		while(rs.next()) {
-			Item item = new Item(rs.getInt("item_Id"), rs.getString("item_Name"), rs.getInt("price"), rs.getString("description"), rs.getString("picture_url"), rs.getInt("count"));
+			Item item = new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6));
 			itemList.add(item);
 		}
 	
@@ -76,7 +76,8 @@ public class ItemDAO implements ItemDAOTemplate {
 		
 		Item item = null;
 		if(rs.next()) {
-			item = new Item(rs.getInt("itemId"), rs.getString("itemName"), rs.getInt("price"), rs.getString("description"), rs.getString("picture_url"), rs.getInt("count"));
+			//item = new Item(rs.getInt("itemId"), rs.getString("itemName"), rs.getInt("price"), rs.getString("description"), rs.getString("picture_url"), rs.getInt("count"));
+			item = new Item(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getInt(6));
 		}
 		closeAll(rs,ps,conn);
 		return item;
@@ -86,18 +87,19 @@ public class ItemDAO implements ItemDAOTemplate {
 	public boolean updateRecordCount(int itemId) throws SQLException {
 		Connection conn = getConnection();
 		
-		String query = "UPDATE ITEM SET COUNT = ? WHERE ITEM_ID = ?";
+		String query = "UPDATE ITEM SET COUNT = COUNT+1 WHERE ITEM_ID = ?";
 		PreparedStatement ps = conn.prepareStatement(query);
 		
-		int count = getItem(itemId).getCount();
+		ps.setInt(1, itemId);
 		
-		ps.setInt(1, ++count);
-		ps.setInt(2, itemId);
+		int row = ps.executeUpdate();
+		boolean result = false;
 		
-		ps.executeUpdate();
+		if(row>0) result = true;
+		
 		closeAll(ps, conn);
 		
-		return true;
+		return result;
 	}
 	
 	
