@@ -23,15 +23,16 @@
 	</insert>
 	
 	<!-- showAllMember, findByIdMember, login, updateMember -->
-	<select id="showAllMember" parameterType="Member">
-		SELECT * FROM MEMBER
+	<select id="showAllMember" resultType="Member">
+		<!-- * 인식 못하므로 컬럼명 다 명시해야 함 -->
+		SELECT id, password, name, address FROM MEMBER
 	</select>
 	
-	<select id="findByIdMember" parameterType="Member">
+	<select id="findByIdMember" parameterType="String" resultType="Member">
 		SELECT * FROM MEMBER WHERE ID = #{id}
 	</select>
 	
-	<select id="login" parameterType="Member">
+	<select id="login" parameterType="Member" resultType="Member">
 		SELECT * FROM MEMBER WHERE ID = #{id} and PASSWORD = #{password}
 	</select>
 	

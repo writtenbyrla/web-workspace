@@ -39,7 +39,7 @@
 									-> 실패하면 views/find_fail.jsp
 				 --%>
 
-				<li><a href="AllMemberServlet">전체회원보기</a></li>
+				<li><a href="/member/all">전체회원보기</a></li>
 				<%--
 				전체 회원보기: views/allShow.jsp에 전체 리스트 출력
 				 --%>

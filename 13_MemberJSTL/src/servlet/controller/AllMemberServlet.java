@@ -10,10 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import servlet.model.dao.MemberDAO;
+import servlet.model.service.MemberService;
 import servlet.model.vo.MemberDTO;
 
-@WebServlet("/AllMemberServlet")
+
+@WebServlet("/member/all")
 public class AllMemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -21,9 +22,9 @@ public class AllMemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //		MemberDAO dao = new MemberDAO();
 		try {
-			ArrayList<MemberDTO> memberList = MemberDAO.getInstance().showAllMember();
+			ArrayList<MemberDTO> memberList = new MemberService().showAllMember();
 			request.setAttribute("memberList", memberList);
-			request.getRequestDispatcher("views/allShow.jsp").forward(request, response);
+			request.getRequestDispatcher("/views/allShow.jsp").forward(request, response);
 			
 		} catch (SQLException e) {}
 		
