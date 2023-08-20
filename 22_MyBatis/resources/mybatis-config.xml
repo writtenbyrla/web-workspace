@@ -45,6 +45,7 @@
 			</dataSource>
 		</environment>
 	</environments>
+	
 		<!-- mapper: 실행할 sql문들을 기록해둔 mapper 파일들을 등록하는 영역 -->
 		<mappers>
 				<mapper resource="mappers/member-mapper.xml"/> <!-- xml파일 새로 만든것 -->

@@ -1,16 +1,13 @@
-package model;
+package servlet.model;
 
 public class MemberVO {
 	private String name;
 	private int age;
 	private String addr;
 	
-	public MemberVO() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	public MemberVO() {}
+	
 	public MemberVO(String name, int age, String addr) {
-		super();
 		this.name = name;
 		this.age = age;
 		this.addr = addr;
@@ -27,10 +24,10 @@ public class MemberVO {
 	public void setAge(int age) {
 		this.age = age;
 	}
-	public String getAddress() {
+	public String getAddr() {
 		return addr;
 	}
-	public void setAddress(String addr) {
+	public void setAddr(String addr) {
 		this.addr = addr;
 	}
 	@Override

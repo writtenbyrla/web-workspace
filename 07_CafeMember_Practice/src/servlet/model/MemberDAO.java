@@ -1,4 +1,4 @@
-package model;
+package servlet.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import config.ServerInfo;
 
-public class MemberDAO implements MemberDAOtemplate{
+public class MemberDAO implements MemberDAOTemplate{
 	
 	public MemberDAO() {
 		// 1. 드라이버 로딩
@@ -47,14 +47,15 @@ public class MemberDAO implements MemberDAOtemplate{
 		Connection conn = getConnection();
 		
 		// 4. 쿼리문 
-		String query = "INSERT INTO MEMBER(NAME, AGE, ADDR) VALUES(?, ?, ?)";
+		String query = "INSERT INTO CAFEMEMBER(NAME, AGE, ADDR) VALUES(?, ?, ?)";
 		PreparedStatement ps = conn.prepareStatement(query);
 		
 		ps.setString(1, vo.getName());
 		ps.setInt(2, vo.getAge());
-		ps.setString(3, vo.getAddress());
+		ps.setString(3, vo.getAddr());
 		
 		ps.executeUpdate();		
+		
 		closeAll(ps, conn);
 	}
 
@@ -62,7 +63,7 @@ public class MemberDAO implements MemberDAOtemplate{
 	public ArrayList<MemberVO> showAllMember() throws SQLException {
 		Connection conn = getConnection();
 		
-		String query = "SELECT * FROM MEMBER";
+		String query = "SELECT * FROM CAFEMEMBER";
 		PreparedStatement ps = conn.prepareStatement(query);
 		
 		ArrayList<MemberVO> list = new ArrayList<>();
@@ -79,7 +80,7 @@ public class MemberDAO implements MemberDAOtemplate{
 	public MemberVO findByNameMember(String name) throws SQLException {
 		Connection conn = getConnection();
 		
-		String query = "SELECT * FROM MEMBER WHERE name = ? ";
+		String query = "SELECT * FROM CAFEMEMBER WHERE NAME = ? ";
 		PreparedStatement ps = conn.prepareStatement(query);
 		
 		ps.setString(1, name);
