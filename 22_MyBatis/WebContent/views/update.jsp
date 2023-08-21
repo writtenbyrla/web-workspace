@@ -17,7 +17,13 @@
 		<p>변경할 주소 : <input type="text" name="address" value="${vo.address}"></p>
 		<p><input type="submit" value="정보수정"></p>
 	</form>
-
+	
+	<h2>비밀번호만 변경</h2>
+	<form action="/update.do" method="post">
+		<p>현재 아이디 : <input type="text" name="id" value="${vo.id}" readonly></p>
+		<p>변경할 패스워드 : <input type="text" name="password" value="${vo.password}"></p>
+		<p><input type="submit" value="정보수수정"></p>
+	</form>
 
 	
 </body>

@@ -1,5 +1,7 @@
 package member.controller.component;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -13,14 +15,23 @@ public class FindController implements Controller {
 
 	@Override
 	public ModelAndView handle(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String id = request.getParameter("id");
 		String path = "views/find_fail.jsp";
 		
-		MemberVO vo = new MemberService().findByIdMember(id);
+		String id = request.getParameter("id");
+		String addr = request.getParameter("addr");
 		
-		if(vo!=null) {
-			request.setAttribute("vo", vo);
-			path = "views/find_ok.jsp";
+		String[] idList = request.getParameterValues("checkId");
+		
+		MemberVO vo = new MemberVO();
+		if(id!="") vo.setId(id);
+		if(addr!="") vo.setAddress(addr);
+		
+		List<MemberVO> list = new MemberService().findByIdMember(idList);
+	
+		
+		if(list!=null) {
+			request.setAttribute("memberList", list);
+			path = "views/allShow.jsp";
 		}
 		// 데이터바인딩 한 값(request.setAttribute)이 있으므로 forward로 보내야 함 
 		// 객체 생성해서 path담고 바로 넘기기
