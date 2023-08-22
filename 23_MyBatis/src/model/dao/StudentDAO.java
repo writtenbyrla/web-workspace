@@ -16,7 +16,7 @@ public class StudentDAO {
 		return dao;
 	}
 	
-	public List<StudentVO> findByWord(SqlSession sqlSession, String word){
+	public List<StudentVO> showStudent(SqlSession sqlSession, String word){
 		return sqlSession.selectList("studentMapper.showStudent", word);
 	}
 	

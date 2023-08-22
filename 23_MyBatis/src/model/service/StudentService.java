@@ -12,7 +12,7 @@ public class StudentService {
 
 	public List<StudentVO> showStudent(String word){
 		SqlSession sqlSession = Template.getSqlSession();
-		List<StudentVO> list =StudentDAO.getInstance().findByWord(sqlSession, word);
+		List<StudentVO> list = StudentDAO.getInstance().showStudent(sqlSession, word);
 		sqlSession.close();
 		return list;
 	

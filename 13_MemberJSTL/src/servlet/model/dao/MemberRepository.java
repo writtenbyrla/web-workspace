@@ -13,9 +13,6 @@ import servlet.model.vo.MemberDTO;
 // dao와 같은 역할
 public class MemberRepository implements MemberDAOTemplate{
 	
-
-
-	
 	@Override
 	public Connection getConnection() throws SQLException {
 		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASSWORD);

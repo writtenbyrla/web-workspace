@@ -11,19 +11,17 @@
 	showStudent
  -->
 <resultMap type="Student" id="studentMap">
-	<id property="student_no" column="student_no"/>
-	<result property="student_name" column="student_name" />
-	<result property="student_address" column="student_address" />
+	<id property="studentNo" column="student_no"/>
+	<result property="studentName" column="student_name" />
+	<result property="studentAddress" column="student_address" />
 	<association property="department" resultMap="departmentMap" />
 </resultMap>
 
 <resultMap type="Department" id="departmentMap">
-	<id property="department_no" column="department_no"/>
-	<result property="department_name" column="department_name" />
+	<id property="departmentNo" column="department_no"/>
+	<result property="departmentName" column="department_name" />
 	<result property="category" column="category" />
 </resultMap>
-
-<select id="showStudent" parameterType="String" resultMap="studentMap">
 
 	<!--
 		#{word}: 조건
@@ -31,30 +29,26 @@
 		 2) WHERE student_no, student_name, student_address, department_name, category랑 word가 포함되어 있는지
 			이 중 하나만 걸려도 되니까 OR로 처리
 	-->
-
-
+	
+	<!--
+		#{word}: 조건
+		 1) word가 null인지 아닌지
+		 2) WHERE student_no, student_name, student_address, department_name, category랑 word가 포함되어 있는지
+			이 중 하나만 걸려도 되니까 OR로 처리
+	-->
+<select id="showStudent" parameterType="String" resultMap="studentMap">
 	SELECT student_no, student_name, student_address, department_name, category
-	FROM TB_STUDENT S
-	JOIN TB_DEPARTMENT D ON (S.DEPARTMENT_NO = D.DEPARTMENT_NO)
-		<trim prefix="WHERE" prefixOverrides="OR">
-			<if test="#{word}!=null">
-				<if test="student_no != null">
-					student_no LIKE '%' || #{word} || '%'
-				</if>
-				<if test="student_name != null">
-					student_name LIKE '%' || #{word} || '%'
-				</if>
-				<if test="student_address != null">
-					student_address LIKE '%' || #{word} || '%'
-				</if>
-				<if test="department_name != null">
-					department_name LIKE '%' || #{word} || '%'
-				</if>
-				<if test="category != null">
-					category LIKE '%' || #{word} || '%'
-				</if>
-			</if>
-		</trim>
+	FROM TB_STUDENT
+	JOIN TB_DEPARTMENT USING (DEPARTMENT_NO)
+	<where>
+		<if test="word!=null">
+			student_no LIKE '%' || #{word} || '%'
+			OR student_name LIKE '%' || #{word} || '%'
+			OR student_address LIKE '%' || #{word} || '%'
+			OR department_name LIKE '%' || #{word} || '%'
+			OR category LIKE '%' || #{word} || '%'
+		</if>
+	</where>
 </select> 
 
  </mapper>

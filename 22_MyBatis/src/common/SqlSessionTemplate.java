@@ -26,7 +26,7 @@ public class SqlSessionTemplate {
 			SqlSessionFactory factory = builder.build(stream);
 			
 			// 3. SqlSessionFactory 객체의 openSession() 메소드를 통해 SqlSession 객체 생성
-			session = factory.openSession(false);
+			session = factory.openSession(false); // auto commit
 			
 		} catch (IOException e) {
 			e.printStackTrace();

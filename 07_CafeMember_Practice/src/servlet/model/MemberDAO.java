@@ -5,25 +5,32 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import config.ServerInfo;
 
-public class MemberDAO implements MemberDAOTemplate{
+public class MemberDAO implements MemberDAOTemplate {
+
+	private static MemberDAO dao = new MemberDAO();
 	
-	public MemberDAO() {
-		// 1. 드라이버 로딩
+	
+	public MemberDAO(){
 		try {
 			Class.forName(ServerInfo.DRIVER_NAME);
-		} catch (ClassNotFoundException e) {}
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
+	public static MemberDAO getInstance() {
+		return dao;
+	}
 	
 	@Override
 	public Connection getConnection() throws SQLException {
 		
-		// 2. DB 연결
-		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USER, ServerInfo.PASSWORD);
+		
+		Connection conn = DriverManager.getConnection(ServerInfo.URL, ServerInfo.USERNAME, ServerInfo.PASSWORD);
 		return conn;
 	}
 
@@ -32,68 +39,38 @@ public class MemberDAO implements MemberDAOTemplate{
 		ps.close();
 		conn.close();
 		
+		
 	}
 
 	@Override
 	public void closeAll(ResultSet rs, PreparedStatement ps, Connection conn) throws SQLException {
+		// TODO Auto-generated method stub
 		rs.close();
 		closeAll(ps, conn);
-		
 	}
 
 	@Override
-	public void insertMember(MemberVO vo) throws SQLException {
-		// 3. Statement 객체 생성
+	public void register(MemberVO vo) throws SQLException {
 		Connection conn = getConnection();
 		
-		// 4. 쿼리문 
-		String query = "INSERT INTO CAFEMEMBER(NAME, AGE, ADDR) VALUES(?, ?, ?)";
+		String query = "INSERT INTO MEMBER(NAME, AGE, ADDR) VALUES(?, ?, ?)";
 		PreparedStatement ps = conn.prepareStatement(query);
 		
 		ps.setString(1, vo.getName());
 		ps.setInt(2, vo.getAge());
 		ps.setString(3, vo.getAddr());
 		
-		ps.executeUpdate();		
+		ps.executeUpdate();
 		
-		closeAll(ps, conn);
+		ps.close();
 	}
 
 	@Override
-	public ArrayList<MemberVO> showAllMember() throws SQLException {
-		Connection conn = getConnection();
-		
-		String query = "SELECT * FROM CAFEMEMBER";
-		PreparedStatement ps = conn.prepareStatement(query);
-		
-		ArrayList<MemberVO> list = new ArrayList<>();
-		ResultSet rs = ps.executeQuery();
-		
-		while(rs.next()) {
-			list.add(new MemberVO(rs.getString("name"), rs.getInt("age"), rs.getString("addr")));
-		}
-		closeAll(rs, ps, conn);
-		return list;
+	public MemberVO search(String id) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
-	@Override
-	public MemberVO findByNameMember(String name) throws SQLException {
-		Connection conn = getConnection();
-		
-		String query = "SELECT * FROM CAFEMEMBER WHERE NAME = ? ";
-		PreparedStatement ps = conn.prepareStatement(query);
-		
-		ps.setString(1, name);
-		
-		ResultSet rs = ps.executeQuery();
-		MemberVO vo = null;
-		while(rs.next()) {
-			vo = new MemberVO(rs.getString("name"), rs.getInt("age"), rs.getString("addr"));
-			
-		}
-		closeAll(rs,ps,conn);
-		
-		return vo;
-	}
+	
 
 }

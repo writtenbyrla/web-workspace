@@ -3,7 +3,6 @@ package model.vo;
 public class StudentVO {
 	
 	private String studentNo;
-	private String departmentNo;
 	private String studentName;
 	private String studentAddress;
 	
@@ -13,9 +12,7 @@ public class StudentVO {
 	
 	public StudentVO(String studentNo, String departmentNo, String studentName, String studentAddress,
 			DepartmentVO department) {
-		super();
 		this.studentNo = studentNo;
-		this.departmentNo = departmentNo;
 		this.studentName = studentName;
 		this.studentAddress = studentAddress;
 		this.department = department;
@@ -29,13 +26,6 @@ public class StudentVO {
 		this.studentNo = studentNo;
 	}
 
-	public String getDepartmentNo() {
-		return departmentNo;
-	}
-
-	public void setDepartmentNo(String departmentNo) {
-		this.departmentNo = departmentNo;
-	}
 
 	public String getStudentName() {
 		return studentName;
@@ -63,7 +53,7 @@ public class StudentVO {
 
 	@Override
 	public String toString() {
-		return "StudentVO [studentNo=" + studentNo + ", departmentNo=" + departmentNo + ", studentName=" + studentName
+		return "StudentVO [studentNo=" + studentNo + ", studentName=" + studentName
 				+ ", studentAddress=" + studentAddress + ", department=" + department + "]";
 	}
 
