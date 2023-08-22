@@ -11,7 +11,6 @@ public interface MemberDAOTemplate {
 	void closeAll(PreparedStatement ps, Connection conn) throws SQLException;
 	void closeAll(ResultSet rs, PreparedStatement ps, Connection conn) throws SQLException;
 	
-	void register(MemberVO vo) throws SQLException;
-	MemberVO search(String id) throws SQLException;
-	
+	void registerMember(MemberVO vo) throws SQLException;
+	MemberVO searchMember(String name) throws SQLException;
 }

@@ -13,7 +13,7 @@ import servlet.model.MemberDAO;
 import servlet.model.MemberVO;
 
 @WebServlet("/SearchServlet")
-public class SearchServlet extends HttpServlet {
+public class searchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -24,7 +24,7 @@ public class SearchServlet extends HttpServlet {
 		String name = request.getParameter("name");
 		
 		try {
-			MemberVO vo = MemberDAO.getInstance().search(name);
+			MemberVO vo = MemberDAO.getInstance().searchMember(name);
 			
 			if(vo!=null) {
 				request.setAttribute("vo", vo);
