@@ -29,12 +29,7 @@ public class MemberDAO implements MemberDAOTemplate{
 		return dao;
 	}
 
-//	public MemberDAO() {
-//		try {
-//			Class.forName(ServerInfo.DRIVER_NAME);
-//		} catch (ClassNotFoundException e) {}
-//
-//	}
+
 	
 	@Override
 	public Connection getConnection() throws SQLException {

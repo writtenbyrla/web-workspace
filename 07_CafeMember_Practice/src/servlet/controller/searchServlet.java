@@ -14,6 +14,7 @@ import servlet.model.MemberVO;
 
 @WebServlet("/SearchServlet")
 public class searchServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
        
 
@@ -22,11 +23,15 @@ public class searchServlet extends HttpServlet {
 		response.setContentType("text/html;charset=utf-8");
 		
 		String name = request.getParameter("name");
+		MemberVO vo = null;
+		vo.setName(name);
 		
 		try {
-			MemberVO vo = MemberDAO.getInstance().searchMember(name);
+			
+			vo = MemberDAO.getInstance().searchMember(vo);
 			
 			if(vo!=null) {
+				
 				request.setAttribute("vo", vo);
 				request.getRequestDispatcher("find_ok.jsp").forward(request, response);
 			} else {
@@ -37,7 +42,6 @@ public class searchServlet extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

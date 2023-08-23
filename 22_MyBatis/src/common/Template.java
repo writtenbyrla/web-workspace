@@ -9,26 +9,20 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 public class Template {
-	
+
 	public static SqlSession getSqlSession() {
-		
-		SqlSession session = null;
+		SqlSession sqlSession = null;
 		String resource = "/mybatis-config.xml";
 		
+		InputStream stream;
 		try {
-			InputStream stream = Resources.getResourceAsStream(resource);
-			
+			stream = Resources.getResourceAsStream(resource);
 			SqlSessionFactoryBuilder builder = new SqlSessionFactoryBuilder();
 			SqlSessionFactory factory = builder.build(stream);
 			
-			session = factory.openSession(false);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			sqlSession = factory.openSession(false);
+		} catch (IOException e) {}
 		
-		return session;
+		return sqlSession;
 	}
-
-		
 }
